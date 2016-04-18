@@ -31,4 +31,40 @@ public class BinarySearchTree {
             return right>left?right+1:left+1;
         }
     }
+
+    public TreeNode invertTree(TreeNode root) {
+        if (root != null) {
+            helper(root);
+        }
+
+        return root;
+    }
+
+    public void helper(TreeNode p) {
+
+        TreeNode temp = p.left;
+        p.left = p.right;
+        p.right = temp;
+
+        if (p.left != null)
+            helper(p.left);
+
+        if (p.right != null)
+            helper(p.right);
+    }
+
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        } else if (p != null && q != null) {
+            if (p.val == q.val) {
+                return isSameTree(p.left, q.left) && isSameTree(q.right, p.right);
+            }
+        } else {
+            return false;
+        }
+
+        return false;
+    }
+
 }
